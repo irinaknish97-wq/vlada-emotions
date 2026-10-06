@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My diary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #432a1e;
+    --bg-deep: #3a2318;
+    --card: #fbf8f2;
+    --card-ink: #3b2a20;
+    --card-muted: #a08c7a;
+    --cream: #efe3d3;
+    --soft: #cdb8a1;
+    --line: rgba(239,227,211,.22);
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { background: var(--bg); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 0 20px 90px;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+
+  header { padding: 64px 0 40px; }
+  .date { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--soft); margin: 0 0 14px; font-weight: 400; }
+  h1 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: clamp(32px, 6vw, 44px); line-height: 1.1; margin: 0; color: var(--cream); }
+
+  .welcome { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.45; color: var(--soft); max-width: 52ch; margin: 18px 0 0; }
+  .block { margin-bottom: 34px; }
+  .label { flex-direction: column; gap: 6px !important; }
+  .label .t { font-size: 16px !important; line-height: 1.5; font-weight: 400; letter-spacing: .01em !important; }
+  .label .sub { font-size: 14px; line-height: 1.65; color: var(--soft); max-width: 58ch; }
+  .label { display: flex; gap: 14px; align-items: baseline; margin: 0 0 12px; }
+  .label .n { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--soft); }
+  .label .t { font-size: 13px; letter-spacing: .04em; color: var(--cream); font-weight: 400; }
+
+  .paper { background: var(--card); border-radius: 4px; padding: 22px 26px 14px; }
+  textarea {
+    display: block; width: 100%; min-height: 330px; resize: vertical;
+    border: 0; outline: none; background: transparent;
+    color: var(--card-ink);
+    font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.85;
+    padding: 0; caret-color: var(--card-ink);
+  }
+  textarea.short { min-height: 190px; }
+  textarea::placeholder { color: var(--card-muted); font-weight: 300; }
+  textarea::selection { background: #e7d4bc; }
+  .paper:focus-within { box-shadow: 0 0 0 3px rgba(239,227,211,.28); }
+  .count { text-align: right; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--card-muted); margin-top: 6px; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  button {
+    font-family: var(--sans); font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    padding: 12px 24px; border-radius: 999px; cursor: pointer;
+    background: transparent; color: var(--cream); border: 1px solid var(--soft);
+    transition: background .2s, color .2s, border-color .2s;
+  }
+  button:hover { border-color: var(--cream); background: rgba(239,227,211,.1); }
+  button.primary { background: var(--cream); color: var(--bg); border-color: var(--cream); }
+  button.primary:hover { background: #fff7ea; }
+  button:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .note { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--soft); margin: 16px 0 0; min-height: 26px; }
+
+  .privacy { font-size: 12px; letter-spacing: .04em; color: var(--soft); margin: 28px 0 0; opacity: .85; }
+
+  @media (max-width: 540px) {
+    body { padding: 0 14px 70px; }
+    header { padding-top: 44px; }
+    .paper { padding: 18px 18px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="date" id="date"></p>
+    <h1>A quiet page, just for you</h1>
+    <p class="welcome">Take a breath. This is your space, and there's no rush. Write in English, in your own words, and don't worry about mistakes. What matters is getting your thoughts out.</p>
+  </header>
+
+  <section class="block">
+    <p class="label"><span class="n">i.</span><span class="t">Tell me how your feelings get in the way of your routine.</span><span class="sub">Some days, big emotions make even ordinary things feel harder. What does that look like for you? Write about the moments when your feelings got in the way of your day, and how it felt. There are no right or wrong answers, and nobody is grading this. Write as much or as little as you like.</span></p>
+    <div class="paper">
+      <textarea id="main" placeholder="Take a breath, and start wherever you like…" aria-label="Write about how your feelings get in the way of your routine"></textarea>
+      <p class="count" id="wc1">0 words</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <p class="label"><span class="n">ii.</span><span class="t">What helps you, even a little?</span><span class="sub">Think about the things that help you get back on track, or snap out of it. Small things count: a song, a walk, a message to a friend, a cup of tea. If nothing comes to mind today, that's okay. You can write what you wish would help.</span></p>
+    <div class="paper">
+      <textarea id="help" class="short" placeholder="Even something tiny counts…" aria-label="Things that help me get back on track or snap out of it"></textarea>
+      <p class="count" id="wc2">0 words</p>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button class="primary" id="copy">Copy my diary</button>
+    <button id="clear">New page</button>
+  </div>
+  <p class="note" id="note"></p>
+  <p class="privacy">Your words stay on this device until you choose to copy them. You decide what to share.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const main = $('main'), help = $('help'), note = $('note');
+$('date').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+const words = t => (t.trim().match(/\S+/g) || []).length;
+function counts() {
+  const a = words(main.value), b = words(help.value);
+  $('wc1').textContent = a + (a === 1 ? ' word' : ' words');
+  $('wc2').textContent = b + (b === 1 ? ' word' : ' words');
+}
+function save() { try { localStorage.setItem('diary-draft', JSON.stringify({ m: main.value, h: help.value })); } catch (e) {} }
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem('diary-draft') || 'null');
+    if (d) { main.value = d.m || ''; help.value = d.h || ''; }
+  } catch (e) {}
+}
+load(); counts();
+[main, help].forEach(t => t.addEventListener('input', () => { counts(); save(); note.textContent = ''; }));
+
+function say(msg) { note.textContent = msg; clearTimeout(say.t); say.t = setTimeout(() => { note.textContent = ''; }, 3500); }
+$('copy').onclick = async () => {
+  if (!main.value.trim() && !help.value.trim()) { say('Whenever you\'re ready. There\'s no hurry.'); return; }
+  const text = $('date').textContent + '\n\nHow my feelings get in the way of my routine\n' + main.value.trim() + '\n\nWhat helps me get back on track\n' + help.value.trim() + '\n';
+  try {
+    await navigator.clipboard.writeText(text);
+    say('Copied. Thank you for sharing this.');
+  } catch (e) {
+    const t = document.createElement('textarea');
+    t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(t);
+    say(ok ? 'Copied. Thank you for sharing this.' : 'Couldn\'t copy automatically. Select the text and copy it by hand.');
+  }
+};
+
+let armed = false;
+$('clear').onclick = () => {
+  const b = $('clear');
+  if (!armed) { armed = true; b.textContent = 'Tap again to clear'; setTimeout(() => { armed = false; b.textContent = 'New page'; }, 3000); return; }
+  armed = false; b.textContent = 'New page';
+  main.value = ''; help.value = ''; counts(); save(); say('A fresh page, whenever you want it.');
+};
+</script>
+</body>
+</html>
